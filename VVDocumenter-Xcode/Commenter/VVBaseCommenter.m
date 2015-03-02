@@ -18,6 +18,7 @@
 @end
 
 @implementation VVBaseCommenter
+
 -(instancetype) initWithIndentString:(NSString *)indent codeString:(NSString *)code
 {
     self = [super init];
@@ -33,11 +34,11 @@
 }
 
 -(NSString *) paramSymbol {
-    return self.forSwift ? @":param:" : @"@param";
+    return self.forSwift ? @":param:" : @"";
 }
 
 -(NSString *) returnSymbol {
-    return self.forSwift ? @":returns:" : @"@return";
+    return self.forSwift ? @":returns:" : @"Returns";
 }
 
 -(NSString *) startComment
@@ -102,9 +103,9 @@
         }
 
         if (self.forSwiftEnum) {
-            [result appendFormat:@"%@- %@ <#%@ description#>\n", self.prefixString, name, arg.name];
+            [result appendFormat:@"%@-%@ - <#%@ description#>\n", self.prefixString, name, arg.name];
         } else {
-            [result appendFormat:@"%@%@ %@ <#%@ description#>\n", self.prefixString, [self paramSymbol], name, arg.name];
+            [result appendFormat:@"%@%@%@ - <#%@ description#>\n", self.prefixString, [self paramSymbol], name, arg.name];
         }
 
     }
@@ -196,7 +197,7 @@
     if ([[VVDocumenterSetting defaultSetting] prefixWithStar] && !self.forSwift) {
         return [NSString stringWithFormat:@"%@ *%@", self.indent, self.space];
     } else if ([[VVDocumenterSetting defaultSetting] prefixWithSlashes]) {
-        return [NSString stringWithFormat:@"%@///%@", self.indent, self.space];
+        return [NSString stringWithFormat:@"%@// ", self.indent];
     } else {
         return [NSString stringWithFormat:@"%@ ", self.indent];
     }
