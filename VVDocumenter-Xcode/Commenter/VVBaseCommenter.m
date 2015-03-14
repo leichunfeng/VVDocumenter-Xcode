@@ -197,7 +197,7 @@
     if ([[VVDocumenterSetting defaultSetting] prefixWithStar] && !self.forSwift) {
         return [NSString stringWithFormat:@"%@ *%@", self.indent, self.space];
     } else if ([[VVDocumenterSetting defaultSetting] prefixWithSlashes]) {
-        return [NSString stringWithFormat:@"%@// ", self.indent];
+        return [NSString stringWithFormat:@"%@/// ", self.indent];
     } else {
         return [NSString stringWithFormat:@"%@ ", self.indent];
     }
